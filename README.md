@@ -19,7 +19,7 @@ Failure_Next_48H
 - `1` – ATM is expected to fail within the next 48 hours
 
 
-### Machine Learning Model
+## Machine Learning Model
 
 A Random Forest Classifier was used to predict whether an ATM will fail within the next 48 hours.
 
@@ -28,7 +28,7 @@ Random Forest was selected because it can handle multiple numerical and categori
 A Streamlit-based interface was also developed to provide an interactive way to use the ATM Failure Prediction model and generate failure predictions.
 
 
-### Conclusion
+## Conclusion
 
 This project demonstrates how machine learning can be used for predictive maintenance in ATM systems. By analysing operational, technical, network, power, and maintenance-related information, the system can identify ATMs that may be at risk of failure within the next 48 hours.
 
