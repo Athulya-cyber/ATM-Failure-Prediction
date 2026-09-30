@@ -25,6 +25,8 @@ A Random Forest Classifier was used to predict whether an ATM will fail within t
 
 Random Forest was selected because it can handle multiple numerical and categorical-derived features and is capable of capturing non-linear relationships between ATM conditions and failure events.
 
+A Streamlit-based interface was also developed to provide an interactive way to use the ATM Failure Prediction model and generate failure predictions.
+
 
 ### Conclusion
 
