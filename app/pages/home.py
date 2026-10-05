@@ -14,7 +14,7 @@ st.markdown("---")
 
 st.subheader("Project Overview")
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_PATH = BASE_DIR / "data" / "ATM_Maintenance_Cleaned.csv"
 
 atm = pd.read_csv(DATA_PATH)
@@ -23,7 +23,7 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     st.metric(
-        "Total Transactions",
+        "Total Records",
         atm.shape[0])
 
 with col2:
