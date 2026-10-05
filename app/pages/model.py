@@ -19,10 +19,10 @@ st.markdown("---")
 # LOAD SAVED MODEL, ENCODERS AND SCALER
 # -------------------------------------------------
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-MODEL_PATH = BASE_DIR / "Models" / "model.joblib"
-ENCODER_PATH = BASE_DIR / "Models" / "encoders.joblib"
+MODEL_PATH = BASE_DIR / "models" / "model.joblib"
+ENCODER_PATH = BASE_DIR / "models" / "encoders.joblib"
 
 model = joblib.load(MODEL_PATH)
 encoders = joblib.load(ENCODER_PATH)
