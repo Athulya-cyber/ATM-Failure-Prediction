@@ -9,16 +9,18 @@ from pathlib import Path
 
 st.title("📊 Exploratory Data Analysis")
 
-st.write("""Exploratory Data Analysis (EDA) is performed to understand the ATM dataset
+st.write("""
+Exploratory Data Analysis (EDA) is performed to understand the ATM dataset
 before building the machine learning model. It helps identify the structure
 and characteristics of the data, detect missing values and outliers, analyze
 the distribution of variables, and understand relationships between features
-and ATM failures."""
-"""EDA also helps in selecting appropriate preprocessing techniques and
+and ATM failures.
+
+EDA also helps in selecting appropriate preprocessing techniques and
 identifying important patterns that may contribute to ATM failure prediction.
 """)
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_PATH = BASE_DIR / "data" / "ATM_Maintenance_Cleaned.csv"
 
 atm = pd.read_csv(DATA_PATH)
@@ -119,7 +121,7 @@ plt.xticks(rotation=90)
 
 plt.subplot(1,3,3)
 sns.countplot(data=atm, x="Location_Type", hue="Failure_Next_48H")
-plt.title("Location_Typevs Failure in Next 48 Hours")
+plt.title("Location_Type vs Failure in Next 48 Hours")
 plt.xticks(rotation=45)
 
 plt.tight_layout()
