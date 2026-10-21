@@ -32,9 +32,8 @@ BASE_DIR = Path(__file__).resolve().parents[2]
 DATA_PATH = BASE_DIR / "Dataset" / "ATM_Maintenance_Cleaned.csv"
 FEATURE_PATH = BASE_DIR / "Models" / "feature_cols.joblib"
 
-atm = pd.read_csv("ATM_Maintenance_Cleaned.csv")
-
-feature_cols = joblib.load("feature_cols.joblib")
+atm = pd.read_csv(DATA_PATH)
+feature_cols = joblib.load(FEATURE_PATH)
 
 col1, col2, col3 = st.columns(3)
 
