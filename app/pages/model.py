@@ -24,17 +24,11 @@ st.markdown("---")
 # LOAD SAVED MODEL, ENCODERS AND FEATURE COLUMNS
 # -------------------------------------------------
 
-model = joblib.load(
-    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Models\model.joblib"
-)
+model = joblib.load("model.joblib")
 
-encoders = joblib.load(
-    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Models\encoders.joblib"
-)
+encoders = joblib.load("encoders.joblib")
 
-feature_cols = joblib.load(
-    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Models\feature_cols.joblib"
-)
+feature_cols = joblib.load("feature_cols.joblib")
 
 
 # -------------------------------------------------
