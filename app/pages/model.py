@@ -27,9 +27,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 
-MODEL_PATH = BASE_DIR / "Models" / "model.joblib"
-ENCODER_PATH = BASE_DIR / "Models" / "encoders.joblib"
-FEATURE_PATH = BASE_DIR / "Models" / "feature_cols.joblib"
+MODEL_PATH = BASE_DIR / "models" / "model.joblib"
+ENCODER_PATH = BASE_DIR / "models" / "encoders.joblib"
+FEATURE_PATH = BASE_DIR / "models" / "feature_cols.joblib"
 
 model = joblib.load(MODEL_PATH)
 encoders = joblib.load(ENCODER_PATH)
