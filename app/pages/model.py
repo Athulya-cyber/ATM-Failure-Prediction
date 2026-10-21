@@ -2,8 +2,13 @@ import streamlit as st
 import pandas as pd
 import joblib
 import warnings
-warnings.filterwarnings('ignore')
-from pathlib import Path
+
+warnings.filterwarnings("ignore")
+
+
+# -------------------------------------------------
+# PAGE TITLE
+# -------------------------------------------------
 
 st.title("🤖 ATM Failure Prediction")
 
@@ -16,16 +21,20 @@ st.markdown("---")
 
 
 # -------------------------------------------------
-# LOAD SAVED MODEL, ENCODERS AND SCALER
+# LOAD SAVED MODEL, ENCODERS AND FEATURE COLUMNS
 # -------------------------------------------------
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+model = joblib.load(
+    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Models\model.joblib"
+)
 
-MODEL_PATH = BASE_DIR / "models" / "model.joblib"
-ENCODER_PATH = BASE_DIR / "models" / "encoders.joblib"
+encoders = joblib.load(
+    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Models\encoders.joblib"
+)
 
-model = joblib.load(MODEL_PATH)
-encoders = joblib.load(ENCODER_PATH)
+feature_cols = joblib.load(
+    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Models\feature_cols.joblib"
+)
 
 
 # -------------------------------------------------
@@ -96,7 +105,6 @@ with col1:
         value=100000
     )
 
-
     cash_jams = st.number_input(
         "Cash Jams",
         min_value=0,
@@ -137,7 +145,6 @@ with col2:
         max_value=100.0,
         value=50.0
     )
-
 
     paper_remaining = st.number_input(
         "Paper Remaining (%)",
@@ -180,7 +187,6 @@ with col3:
         value=30
     )
 
-   
     printer_errors = st.number_input(
         "Printer Errors",
         min_value=0,
@@ -213,15 +219,31 @@ with col2:
     )
 
 
+# -------------------------------------------------
+# PREDICTION
+# -------------------------------------------------
+
 if st.button("🔮 Predict ATM Failure", use_container_width=True):
 
-    # Encode categorical variables
+    # Encode categorical variables using the SAME
+    # encoders used during model training
     district_encoded = encoders["District"].transform([district])[0]
-    location_type_encoded = encoders["Location_Type"].transform([location_type])[0]
-    manufacturer_encoded = encoders["Manufacturer"].transform([manufacturer])[0]
 
-    # Create input DataFrame
+    location_type_encoded = encoders["Location_Type"].transform(
+        [location_type]
+    )[0]
+
+    manufacturer_encoded = encoders["Manufacturer"].transform(
+        [manufacturer]
+    )[0]
+
+
+    # -------------------------------------------------
+    # CREATE INPUT DATA
+    # -------------------------------------------------
+
     input_data = pd.DataFrame([{
+
         "District": district_encoded,
         "Location_Type": location_type_encoded,
         "Manufacturer": manufacturer_encoded,
@@ -229,12 +251,14 @@ if st.button("🔮 Predict ATM Failure", use_container_width=True):
         "ATM_Age_Yrs": atm_age,
         "Daily_Transactions": daily_transactions,
         "Failed_Transactions": failed_transactions,
+
         "Cash_Remaining_Pct": cash_remaining,
         "Cash_Loaded_Today": cash_loaded,
 
         "CardReader_Errors": card_reader_errors,
         "CashDispenser_Errors": cash_dispenser_errors,
         "Cash_Jams": cash_jams,
+
         "Printer_Errors": printer_errors,
         "Paper_Remaining_Pct": paper_remaining,
 
@@ -249,19 +273,54 @@ if st.button("🔮 Predict ATM Failure", use_container_width=True):
         "Power_Outages_7D": power_outages,
 
         "Days_Since_Maintenance": days_since_maintenance,
+
         "Previous_Failures_90D": previous_failures,
         "Customer_Complaints_7D": customer_complaints
+
     }])
 
-    # Prediction
+
+    # -------------------------------------------------
+    # MATCH EXACT TRAINING FEATURE ORDER
+    # -------------------------------------------------
+
+    input_data = input_data[feature_cols]
+
+
+    # -------------------------------------------------
+    # PREDICTION
+    # -------------------------------------------------
+
     prediction = model.predict(input_data)[0]
 
-    # Display result
+    failure_probability = model.predict_proba(input_data)[0][1]
+
+
+    # -------------------------------------------------
+    # DISPLAY RESULT
+    # -------------------------------------------------
+
     st.subheader("Prediction Result")
 
     if prediction == 1:
+
         st.error("⚠️ ATM Failure Predicted")
-        st.write("The ATM is likely to fail within the next 48 hours.")
+
+        st.write(
+            "The ATM is likely to fail within the next 48 hours."
+        )
+
     else:
+
         st.success("✅ No ATM Failure Predicted")
-        st.write("The ATM is unlikely to fail within the next 48 hours.")
+
+        st.write(
+            "The ATM is unlikely to fail within the next 48 hours."
+        )
+
+
+    # Display failure probability
+    st.write(
+        f"**Failure Probability:** "
+        f"{failure_probability * 100:.2f}%"
+    )
