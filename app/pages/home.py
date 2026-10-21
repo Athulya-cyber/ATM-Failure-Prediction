@@ -29,8 +29,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 
-DATA_PATH = BASE_DIR / "Dataset" / "ATM_Maintenance_Cleaned.csv"
-FEATURE_PATH = BASE_DIR / "Models" / "feature_cols.joblib"
+DATA_PATH = BASE_DIR / "data" / "ATM_Maintenance_Cleaned.csv"
+FEATURE_PATH = BASE_DIR / "models" / "feature_cols.joblib"
 
 atm = pd.read_csv(DATA_PATH)
 feature_cols = joblib.load(FEATURE_PATH)
