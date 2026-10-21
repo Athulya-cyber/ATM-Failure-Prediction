@@ -31,11 +31,9 @@ MODEL_PATH = BASE_DIR / "Models" / "model.joblib"
 ENCODER_PATH = BASE_DIR / "Models" / "encoders.joblib"
 FEATURE_PATH = BASE_DIR / "Models" / "feature_cols.joblib"
 
-model = joblib.load("model.joblib")
-
-encoders = joblib.load("encoders.joblib")
-
-feature_cols = joblib.load("feature_cols.joblib")
+model = joblib.load(MODEL_PATH)
+encoders = joblib.load(ENCODER_PATH)
+feature_cols = joblib.load(FEATURE_PATH)
 
 
 # -------------------------------------------------
