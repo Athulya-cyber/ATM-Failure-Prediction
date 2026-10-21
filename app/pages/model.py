@@ -23,6 +23,13 @@ st.markdown("---")
 # -------------------------------------------------
 # LOAD SAVED MODEL, ENCODERS AND FEATURE COLUMNS
 # -------------------------------------------------
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parents[2]
+
+MODEL_PATH = BASE_DIR / "Models" / "model.joblib"
+ENCODER_PATH = BASE_DIR / "Models" / "encoders.joblib"
+FEATURE_PATH = BASE_DIR / "Models" / "feature_cols.joblib"
 
 model = joblib.load("model.joblib")
 
