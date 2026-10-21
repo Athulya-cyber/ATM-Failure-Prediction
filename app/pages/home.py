@@ -25,13 +25,9 @@ st.markdown("---")
 
 st.subheader("Project Overview")
 
-atm = pd.read_csv(
-    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Dataset\ATM_Maintenance_Cleaned.csv"
-)
+atm = pd.read_csv("ATM_Maintenance_Cleaned.csv")
 
-feature_cols = joblib.load(
-    r"C:\Users\Lenovo\Documents\Cyber Square\Work\ATM project\Models\feature_cols.joblib"
-)
+feature_cols = joblib.load("feature_cols.joblib")
 
 col1, col2, col3 = st.columns(3)
 
